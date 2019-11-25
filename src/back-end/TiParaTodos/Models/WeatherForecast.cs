@@ -1,6 +1,6 @@
 using System;
 
-namespace TiParaTodos
+namespace TiParaTodos.Models
 {
     public class WeatherForecast
     {

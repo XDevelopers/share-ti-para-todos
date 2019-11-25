@@ -431,6 +431,7 @@
                 })
                 .then(function(response) {
                   this.contacts = response.data;
+                  console.log(response.data);
                   console.log(response);
                 })
                 .catch(function(error) {

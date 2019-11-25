@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TiParaTodos.Models;
 
 namespace TiParaTodos.Controllers
 {
@@ -35,42 +36,4 @@ namespace TiParaTodos.Controllers
             .ToArray();
         }
     }
-
-    [ApiController]
-    [Route("[controller]")]
-    public class TiParaTodosController : ControllerBase
-    {
-        private static readonly List<Contact> Contacts = new List<Contact>();
-
-        private readonly ILogger<TiParaTodosController> _logger;
-
-        public TiParaTodosController(ILogger<TiParaTodosController> logger)
-        {
-            _logger = logger;
-        }
-
-        [HttpGet]
-        public IEnumerable<Contact> Get()
-        {
-            return Contacts.ToArray();
-        }
-
-        [HttpPost]
-        public IEnumerable<Contact> Post(Contact contact)
-        {
-            Contacts.Add(contact);
-
-            return Contacts.ToArray();
-        }
-    }
-
-    public class Contact 
-    {
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string Phone { get; set; }
-        public string Message { get; set; }
-
-    }
-
 }
