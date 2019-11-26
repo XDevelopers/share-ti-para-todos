@@ -73,8 +73,8 @@
               <li class="nav-item mx-0 mx-lg-1">
                 <a
                   class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
-                  href="#portfolio"
-                  >Portfolio</a
+                  href="#pessoas"
+                  >Pessoas</a
                 >
               </li>
               <li class="nav-item mx-0 mx-lg-1">
@@ -126,7 +126,7 @@
       </header>
 
       <!-- Portfolio Section -->
-      <section class="page-section portfolio" id="portfolio">
+      <section class="page-section portfolio" id="pessoas">
         <div class="container">
           <!-- Portfolio Section Heading -->
           <h2
@@ -397,21 +397,25 @@
       Vue.prototype.$http = axios;
       var app = new Vue({
         el: "#app",
-        data: {
-          title: "TI para Todos",
-          contact: {
-            name: "",
-            email: "",
-            phone: "",
-            message: ""
-          },
-          contacts: [],
-          saved: false
+        data() {
+          return {
+            title: "TI para Todos",
+            contact: {
+              name: "",
+              email: "",
+              phone: "",
+              message: ""
+            },
+            contacts: [],
+            saved: false,
+            baseUrl: "https://localhost:5001/TiParaTodos"
+            //baseUrl: "https://tiparatodos201911.azurewebsites.net/TiParaTodos" // Ativar Primeiro
+          };
         },
         mounted() {
           var vm = this;
           this.$http
-            .get("https://localhost:5001/TiParaTodos")
+            .get(this.baseUrl)
             .then(function(response) {
               vm.contacts = response.data;
             })
@@ -421,23 +425,23 @@
         },
         methods: {
           saveContact: function(e) {
-            if (this.contact.name && this.contact.email) {
-              this.$http
-                .post("https://localhost:5001/TiParaTodos", {
-                  name: this.contact.name,
-                  email: this.contact.email,
-                  phone: this.contact.phone,
-                  message: this.contact.message
+            var vm = this;
+            if (vm.contact.name && vm.contact.email) {
+              vm.$http
+                .post(vm.baseUrl, {
+                  name: vm.contact.name,
+                  email: vm.contact.email,
+                  phone: vm.contact.phone,
+                  message: vm.contact.message
                 })
                 .then(function(response) {
-                  this.contacts = response.data;
-                  console.log(response.data);
-                  console.log(response);
+                  vm.contacts = response.data;
+                  console.log(vm.contacts);
                 })
                 .catch(function(error) {
                   console.log(error);
                 });
-              this.clearForm();
+              vm.clearForm();
             }
             e.preventDefault();
           },
