@@ -32,5 +32,4 @@ namespace TiParaTodos.Controllers
             return Contacts.ToArray();
         }
     }
-
 }
